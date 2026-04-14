@@ -27,5 +27,5 @@ body {
 
 nav.navbar-font,
 .navbar-font {
-  font-family: var(--font-nunito), var(--font-lora), system-ui, -apple-system, sans-serif;
+  font-family: var(--font-montserrat), var(--font-lora), system-ui, -apple-system, sans-serif;
 }
