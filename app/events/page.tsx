@@ -2,16 +2,10 @@ import Image from "next/image";
 
 const upcomingEvents = [
   {
-    name: "Mock Shaadi",
-    link: "https://doorlist.app/e/Ngo5Mob?s=6ASqMnKnCA",
-    thumbnail: "/images/shaadi.png",
-    subtitle: "February 21, 2026",
-  },
-  {
-    name: "Holi Show 2026",
-    link: "https://www.instagram.com/p/DUESm9pgdVB/",
-    thumbnail: "/images/IClogo.png",
-    subtitle: "April 4, 2026",
+    name: "Garba Day 1",
+    link: null, // TODO: registration/event link
+    thumbnail: "/images/IClogo.png", // TODO: event thumbnail
+    subtitle: "TODO: date",
   },
 ];
 
@@ -33,6 +27,18 @@ const pastEventGalleries = [
     link: "https://anaveragephoto.pixieset.com/icgtdiwali/",
     thumbnail: "/images/diwaliboard.jpg",
     subtitle: "November 8, 2025",
+  },
+  {
+    name: "Mock Shaadi",
+    link: "https://doorlist.app/e/Ngo5Mob?s=6ASqMnKnCA",
+    thumbnail: "/images/shaadi.png",
+    subtitle: "February 21, 2026",
+  },
+  {
+    name: "Holi Show 2026",
+    link: "https://www.instagram.com/p/DUESm9pgdVB/",
+    thumbnail: "/images/IClogo.png",
+    subtitle: "April 4, 2026",
   },
 ];
 

@@ -1,21 +1,309 @@
+"use client";
+
 import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
+
+/* ---------------------------------------------------------------------------
+   About page
+
+   Photos use existing assets from /public/images. The gallery intentionally
+   uses the India Club logo as a stand-in placeholder for real event photos.
+   Colors come from CSS variables defined in globals.css (see --color-* tokens)
+   so brand colors can be swapped in one place.
+
+   Animations use CSS transitions + IntersectionObserver only (no animation
+   library is installed in this project) and respect prefers-reduced-motion.
+--------------------------------------------------------------------------- */
+
+// Hero background crossfade slides.
+const HERO_SLIDES = [
+  { src: "/images/holi.avif", alt: "Holi celebration" },
+  { src: "/images/garba1.jpg", alt: "Garba night" },
+  { src: "/images/garba2.jpg", alt: "Garba celebration" },
+];
+
+const STATS = [
+  { number: "50+", label: "Years of Legacy" },
+  { number: "1000+", label: "Students Engaged" },
+  { number: "6+", label: "Festivals Annually" },
+];
+
+// 12 cells (3 pages of 4) so the prev/next arrows have somewhere to go.
+// These use the India Club logo as a placeholder for real event photos.
+const GALLERY = Array.from({ length: 12 }, (_, i) => i + 1);
+
+// Both president notes read as the same placeholder copy in the design.
+// President names/titles aren't legible in the screenshot -> TODO placeholders.
+const PRESIDENT_NOTE =
+  "Welcome to India Club at Georgia Tech! Our mission has always been simple: to create a space where students can celebrate culture, build lasting friendships, and feel at home. Whether you're attending your first Holi celebration, performing at Diwali Night, or simply meeting new people, India Club offers opportunities to connect, grow, and create memories that will last far beyond your time at Georgia Tech. What makes this organization special is the people.";
+
+const PRESIDENTS = [
+  { photo: "/images/srujan.jpg", alt: "President headshot", note: PRESIDENT_NOTE, name: "TODO: President name" },
+  { photo: "/images/rida.jpg", alt: "President headshot", note: PRESIDENT_NOTE, name: "TODO: President name" },
+];
 
 export default function About() {
+  const [heroIndex, setHeroIndex] = useState(0);
+  const [activeSection, setActiveSection] = useState(0);
+  const sectionRefs = useRef<(HTMLElement | null)[]>([]);
+  const galleryRef = useRef<HTMLDivElement>(null);
+
+  // Hero background slideshow: auto-advance with a crossfade, paused when the
+  // user prefers reduced motion.
+  useEffect(() => {
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) return;
+    const id = setInterval(() => {
+      setHeroIndex((i) => (i + 1) % HERO_SLIDES.length);
+    }, 4500);
+    return () => clearInterval(id);
+  }, []);
+
+  // Scroll focus: the section most in view becomes "active" (full opacity /
+  // scale 1); the others fade back. Uses IntersectionObserver, picking the
+  // section with the highest visible ratio rather than raw scroll math.
+  useEffect(() => {
+    const ratios = new Map<number, number>();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          const idx = Number((entry.target as HTMLElement).dataset.index);
+          ratios.set(idx, entry.intersectionRatio);
+        }
+        let best = 0;
+        let bestRatio = -1;
+        ratios.forEach((ratio, idx) => {
+          if (ratio > bestRatio) {
+            bestRatio = ratio;
+            best = idx;
+          }
+        });
+        setActiveSection(best);
+      },
+      { threshold: [0, 0.25, 0.5, 0.6, 0.75, 1] }
+    );
+
+    const nodes = sectionRefs.current.filter(Boolean) as HTMLElement[];
+    nodes.forEach((node) => observer.observe(node));
+    return () => observer.disconnect();
+  }, []);
+
+  const registerSection = (index: number) => (el: HTMLElement | null) => {
+    sectionRefs.current[index] = el;
+  };
+
+  const sectionClass = (index: number) =>
+    `focus-section${activeSection === index ? " is-active" : ""}`;
+
+  const scrollGallery = (direction: 1 | -1) => {
+    const el = galleryRef.current;
+    if (!el) return;
+    const maxScroll = el.scrollWidth - el.clientWidth;
+    const atEnd = el.scrollLeft >= maxScroll - 1;
+    const atStart = el.scrollLeft <= 1;
+
+    // Cyclical: wrap from the last page back to the first (and vice versa).
+    if (direction === 1 && atEnd) {
+      el.scrollTo({ left: 0, behavior: "smooth" });
+    } else if (direction === -1 && atStart) {
+      el.scrollTo({ left: maxScroll, behavior: "smooth" });
+    } else {
+      // Advance one full page (the visible set of cards) per click.
+      el.scrollBy({ left: direction * el.clientWidth, behavior: "smooth" });
+    }
+  };
+
   return (
-    <section className="relative w-full h-screen overflow-hidden">
-      <Image
-        src="/images/holi.avif"
-        alt="Holi celebration"
-        width={2400}
-        height={1600}
-        priority
-        className="absolute left-0 -top-[100px] h-full w-full object-cover object-center"
-      />
-      <div className="absolute left-1/2 top-1/3 w-full -translate-x-1/2 -translate-y-1/2 -mt-[125px] text-center">
-        <h1 className="px-4 text-white text-4xl md:text-6xl font-semibold">
-          Your Home Away From Home
-        </h1>
-      </div>
-    </section>
+    <div className="w-full overflow-hidden">
+      {/* 1. HERO ------------------------------------------------------------ */}
+      <section
+        ref={registerSection(0)}
+        data-index={0}
+        className={`relative h-[70vh] min-h-[420px] w-full overflow-hidden ${sectionClass(0)}`}
+      >
+        {/* Crossfading background images */}
+        {HERO_SLIDES.map((slide, i) => (
+          <div
+            key={slide.src}
+            className={`hero-slide absolute inset-0${heroIndex === i ? " is-active" : ""}`}
+            aria-hidden={heroIndex !== i}
+          >
+            <Image
+              src={slide.src}
+              alt={slide.alt}
+              fill
+              priority={i === 0}
+              sizes="100vw"
+              className="object-cover object-center"
+            />
+          </div>
+        ))}
+
+        {/* Dark overlay keeps the headline readable through every transition */}
+        <div className="absolute inset-0 bg-black/50" />
+
+        <div className="absolute inset-0 flex flex-col items-center justify-center px-4 text-center">
+          <h1 className="text-4xl font-semibold text-[var(--color-text-light)] md:text-6xl">
+            Your Home Away From Home
+          </h1>
+          <p className="mt-4 max-w-xl text-base text-[var(--color-text-light)]/90 md:text-lg">
+            Celebrate our culture, empower each other and create memories for a lifetime
+          </p>
+        </div>
+      </section>
+
+      {/* 2. STATS BAR ------------------------------------------------------- */}
+      <section
+        ref={registerSection(1)}
+        data-index={1}
+        className={`w-full bg-[var(--color-navy-dark)] px-6 py-14 ${sectionClass(1)}`}
+      >
+        <div className="mx-auto grid max-w-5xl grid-cols-3 gap-4 text-center">
+          {STATS.map((stat) => (
+            <div key={stat.label} className="flex flex-col items-center">
+              <span className="text-4xl font-semibold text-[var(--color-text-light)] sm:text-6xl md:text-7xl">
+                {stat.number}
+              </span>
+              <span className="mt-2 font-[family-name:var(--font-montserrat)] text-[10px] uppercase tracking-widest text-[var(--color-text-light)]/80 sm:text-xs md:text-sm">
+                {stat.label}
+              </span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 3. WHO WE ARE ------------------------------------------------------ */}
+      <section
+        ref={registerSection(2)}
+        data-index={2}
+        className={`relative w-full ${sectionClass(2)}`}
+      >
+        {/* Full-width group photo background */}
+        <Image
+          src="/images/diwaliboard.jpg"
+          alt="India Club members group photo"
+          fill
+          sizes="100vw"
+          className="object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-black/55" />
+
+        <div className="relative mx-auto flex min-h-[460px] max-w-6xl items-center px-6 py-16">
+          <div className="max-w-2xl text-[var(--color-text-light)]">
+            <h2 className="text-3xl font-semibold md:text-5xl">Who We Are</h2>
+            <p className="mt-6 text-sm leading-relaxed text-[var(--color-text-light)]/90 md:text-base">
+              India Club at Georgia Tech is more than a student organization—it&apos;s a
+              community. Since 1974, we&apos;ve brought together students from diverse
+              backgrounds to celebrate Indian culture, build meaningful connections, and
+              create unforgettable experiences.
+            </p>
+            <p className="mt-4 text-sm leading-relaxed text-[var(--color-text-light)]/90 md:text-base">
+              From vibrant festivals like Holi and Diwali to social gatherings, cultural
+              showcases, and professional networking events, we provide opportunities for
+              students to find a sense of belonging while sharing the richness of Indian
+              traditions with the Georgia Tech community.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. GALLERY --------------------------------------------------------- */}
+      <section
+        ref={registerSection(3)}
+        data-index={3}
+        className={`w-full bg-[var(--color-cream)] px-6 py-16 ${sectionClass(3)}`}
+      >
+        <div className="mx-auto max-w-6xl">
+          <h2 className="mb-8 text-3xl font-semibold text-[var(--color-text-dark)] md:text-5xl">
+            Gallery
+          </h2>
+
+          {/* Arrows sit in their own gutters so the images stay centered between them. */}
+          <div className="flex items-center gap-3 md:gap-4">
+            <button
+              type="button"
+              aria-label="Previous photos"
+              onClick={() => scrollGallery(-1)}
+              className="flex-shrink-0 rounded-full bg-[var(--color-navy-dark)] p-3 text-[var(--color-text-light)] shadow-md transition-opacity duration-200 hover:opacity-80"
+            >
+              <span aria-hidden className="block leading-none">&#8249;</span>
+            </button>
+
+            <div
+              ref={galleryRef}
+              className="no-scrollbar flex min-w-0 flex-1 snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth py-2"
+            >
+              {GALLERY.map((n) => (
+                <div
+                  key={n}
+                  // Exactly 4 cards fill the viewport on desktop (3 gaps of 1rem);
+                  // fewer on smaller screens so they don't get too narrow.
+                  className="relative flex aspect-[4/5] w-[80%] flex-shrink-0 snap-start items-center justify-center rounded-md bg-[var(--color-placeholder)] p-6 sm:w-[calc((100%-1rem)/2)] lg:w-[calc((100%-3rem)/4)]"
+                >
+                  <Image
+                    src="/images/IClogowhite.png"
+                    alt={`Gallery placeholder ${n}`}
+                    width={140}
+                    height={140}
+                    className="h-auto w-1/2 object-contain opacity-70"
+                  />
+                </div>
+              ))}
+            </div>
+
+            <button
+              type="button"
+              aria-label="Next photos"
+              onClick={() => scrollGallery(1)}
+              className="flex-shrink-0 rounded-full bg-[var(--color-navy-dark)] p-3 text-[var(--color-text-light)] shadow-md transition-opacity duration-200 hover:opacity-80"
+            >
+              <span aria-hidden className="block leading-none">&#8250;</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. A NOTE FROM THE PRESIDENTS ------------------------------------- */}
+      <section
+        ref={registerSection(4)}
+        data-index={4}
+        className={`w-full bg-[var(--color-navy-dark)] px-6 py-16 ${sectionClass(4)}`}
+      >
+        <div className="mx-auto max-w-5xl">
+          <h2 className="mb-14 text-center text-3xl font-semibold text-[var(--color-text-light)] md:text-5xl">
+            A Note From The Presidents
+          </h2>
+
+          <div className="space-y-16">
+            {PRESIDENTS.map((president, i) => (
+              <div
+                key={president.photo}
+                className={`flex flex-col items-center gap-8 md:gap-12 ${
+                  i % 2 === 1 ? "md:flex-row-reverse" : "md:flex-row"
+                }`}
+              >
+                <div className="relative aspect-[4/5] w-52 flex-shrink-0 overflow-hidden rounded-md md:w-64">
+                  <Image
+                    src={president.photo}
+                    alt={president.alt}
+                    fill
+                    sizes="(max-width: 768px) 13rem, 16rem"
+                    className="object-cover object-top"
+                  />
+                </div>
+                <div className="text-[var(--color-text-light)]">
+                  <p className="text-sm leading-relaxed text-[var(--color-text-light)]/90 md:text-base">
+                    {president.note}
+                  </p>
+                  <p className="mt-4 font-[family-name:var(--font-montserrat)] text-sm text-[var(--color-accent)]">
+                    &mdash; {president.name}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }

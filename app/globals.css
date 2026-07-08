@@ -15,6 +15,64 @@
   }
 }
 
+/* ---------------------------------------------------------------------------
+   About page theme tokens
+   Replace the values below with the exact brand colors when they're ready.
+   The variable NAMES are what matter — the hex values are best-guess
+   approximations pulled from the design screenshot.
+--------------------------------------------------------------------------- */
+:root {
+  --color-navy-dark: #0a1e3f;   /* PLACEHOLDER - dark navy section background (stats bar, presidents) */
+  --color-cream: #f7f1e1;       /* PLACEHOLDER - cream / off-white section background (gallery) */
+  --color-text-light: #f4f2ea;  /* PLACEHOLDER - light text on dark backgrounds */
+  --color-text-dark: #0a1e3f;   /* PLACEHOLDER - dark text on light backgrounds */
+  --color-accent: #b8c7d9;      /* PLACEHOLDER - accent color (soft blue used in nav) */
+  --color-placeholder: #35476a; /* PLACEHOLDER - fill for image placeholder blocks (swap for real photos) */
+}
+
+/* Scroll-focus effect: the section in view is emphasized, others fade back.
+   All movement is disabled under prefers-reduced-motion. */
+.focus-section {
+  opacity: 0.65;
+  transform: scale(0.98);
+  transition: opacity 500ms ease-out, transform 500ms ease-out;
+  will-change: opacity, transform;
+}
+.focus-section.is-active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Hero crossfade slides */
+.hero-slide {
+  opacity: 0;
+  transition: opacity 600ms ease-in-out;
+}
+.hero-slide.is-active {
+  opacity: 1;
+}
+
+/* Hide the gallery scrollbar while keeping it scrollable */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .focus-section,
+  .focus-section.is-active {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .hero-slide {
+    transition: none;
+  }
+}
+
 html {
   background: #f7f7f7;
 }

@@ -24,18 +24,24 @@ export default function Navbar() {
     }`;
 
   const sidebarLinkStyle = (path: string) =>
-    `block w-full py-2 px-3 rounded-none transition-colors duration-200 text-lg ${
+    `flex items-center w-full py-2.5 px-3 rounded-lg text-lg transition-all duration-200 hover:bg-white/5 ${
       pathname === path
-        ? "text-[#b8c7d9] font-bold"
+        ? "text-[#b8c7d9] font-bold bg-white/5"
         : "text-white font-semibold hover:text-[#b8c7d9]"
     }`;
 
   const sidebarSubLinkStyle = (path: string) =>
-    `block w-full py-2 px-3 rounded-none transition-colors duration-200 text-lg ${
+    `flex items-center w-full py-2 px-3 rounded-lg text-base transition-all duration-200 hover:bg-white/5 ${
       pathname === path
-        ? "text-[#b8c7d9] font-semibold"
-        : "text-white font-medium hover:text-[#b8c7d9]"
+        ? "text-[#b8c7d9] font-semibold bg-white/5"
+        : "text-white/80 font-medium hover:text-[#b8c7d9]"
     }`;
+
+  const sidebarExternalStyle =
+    "flex items-center w-full py-2 px-3 rounded-lg text-base font-medium text-white/90 transition-all duration-200 hover:bg-white/5 hover:text-[#b8c7d9]";
+
+  const sidebarGroupLabelStyle =
+    "px-3 pt-4 pb-1 text-xs font-semibold uppercase tracking-widest text-white/40 navbar-font";
 
   return (
     <>
@@ -169,47 +175,53 @@ export default function Navbar() {
               </button>
             </div>
 
-            <nav className="overflow-hidden rounded-xl">
+            <nav className="flex flex-col gap-1">
               <Link href="/" className={sidebarLinkStyle("/")} onClick={() => setIsSidebarOpen(false)}>Home</Link>
               <Link href="/about" className={sidebarLinkStyle("/about")} onClick={() => setIsSidebarOpen(false)}>About</Link>
               <Link href="/join" className={sidebarLinkStyle("/join")} onClick={() => setIsSidebarOpen(false)}>Get Involved</Link>
-              <div>
-                <p className="text-white font-semibold text-lg px-3 py-2 rounded-none">Members</p>
-                <div>
-                  <Link href="/board-members/structure" className={`${sidebarSubLinkStyle("/board-members/structure")} pl-7`} onClick={() => setIsSidebarOpen(false)}>
-                    Structure
-                  </Link>
-                  <Link href="/board-members/officers" className={`${sidebarSubLinkStyle("/board-members/officers")} pl-7`} onClick={() => setIsSidebarOpen(false)}>
-                    Officers
-                  </Link>
-                </div>
+
+              {/* Members group */}
+              <p className={sidebarGroupLabelStyle}>Members</p>
+              <div className="ml-3 flex flex-col gap-1 border-l border-white/15 pl-2">
+                <Link href="/board-members/structure" className={sidebarSubLinkStyle("/board-members/structure")} onClick={() => setIsSidebarOpen(false)}>
+                  Structure
+                </Link>
+                <Link href="/board-members/officers" className={sidebarSubLinkStyle("/board-members/officers")} onClick={() => setIsSidebarOpen(false)}>
+                  Officers
+                </Link>
               </div>
-              <Link href="/events" className={sidebarLinkStyle("/events")} onClick={() => setIsSidebarOpen(false)}>Events</Link>
-              <a
-                href="mailto:info@indiaclub.gatech.edu"
-                className="block py-2 px-3 rounded-lg transition-colors duration-200 text-lg text-white font-semibold hover:text-[#b8c7d9]"
-                onClick={() => setIsSidebarOpen(false)}
-              >
-                Contact Us
-              </a>
-              <a
-                href="https://www.instagram.com/indiaclub_gt/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block py-2 px-3 rounded-lg transition-colors duration-200 text-lg text-white font-semibold hover:text-[#b8c7d9]"
-                onClick={() => setIsSidebarOpen(false)}
-              >
-                Instagram
-              </a>
-              <a
-                href="https://www.tiktok.com/@indiaclub_gt"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block py-2 px-3 rounded-lg transition-colors duration-200 text-lg text-white font-semibold hover:text-[#b8c7d9]"
-                onClick={() => setIsSidebarOpen(false)}
-              >
-                TikTok
-              </a>
+
+              <Link href="/events" className={`${sidebarLinkStyle("/events")} mt-1`} onClick={() => setIsSidebarOpen(false)}>Events</Link>
+
+              {/* Connect group */}
+              <div className="mt-3 flex flex-col gap-1 border-t border-white/10 pt-2">
+                <p className={sidebarGroupLabelStyle}>Connect</p>
+                <a
+                  href="mailto:info@indiaclub.gatech.edu"
+                  className={sidebarExternalStyle}
+                  onClick={() => setIsSidebarOpen(false)}
+                >
+                  Contact Us
+                </a>
+                <a
+                  href="https://www.instagram.com/indiaclub_gt/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={sidebarExternalStyle}
+                  onClick={() => setIsSidebarOpen(false)}
+                >
+                  Instagram
+                </a>
+                <a
+                  href="https://www.tiktok.com/@indiaclub_gt"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={sidebarExternalStyle}
+                  onClick={() => setIsSidebarOpen(false)}
+                >
+                  TikTok
+                </a>
+              </div>
             </nav>
           </aside>
         </div>
