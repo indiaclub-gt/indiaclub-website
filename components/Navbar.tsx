@@ -145,7 +145,7 @@ export default function Navbar() {
             type="button"
             aria-label="Open navigation menu"
             onClick={() => setIsSidebarOpen(true)}
-            className="p-1.5 rounded-md hover:bg-gray-300 transition-colors duration-200"
+            className="cursor-pointer p-1.5 rounded-md hover:bg-gray-300 transition-colors duration-200"
           >
             <span className="block w-4 h-0.5 bg-white mb-1" />
             <span className="block w-4 h-0.5 bg-white mb-1" />
