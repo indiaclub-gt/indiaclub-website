@@ -256,14 +256,14 @@ export default function About() {
                   key={n}
                   // Exactly 4 cards fill the viewport on desktop (3 gaps of 1rem);
                   // fewer on smaller screens so they don't get too narrow.
-                  className="relative flex aspect-[4/5] w-[80%] flex-shrink-0 snap-start items-center justify-center rounded-md bg-[var(--color-placeholder)] p-6 sm:w-[calc((100%-1rem)/2)] lg:w-[calc((100%-3rem)/4)]"
+                  className="relative flex aspect-[4/5] w-[80%] flex-shrink-0 snap-start items-center justify-center rounded-md bg-[#2D2D2D] p-6 sm:w-[calc((100%-1rem)/2)] lg:w-[calc((100%-3rem)/4)]"
                 >
                   <Image
                     src="/images/IClogowhite.png"
                     alt={`Gallery placeholder ${n}`}
                     width={140}
                     height={140}
-                    className="h-auto w-1/2 object-contain opacity-70"
+                    className="h-auto w-2/3 object-contain opacity-70"
                   />
                 </div>
               ))}

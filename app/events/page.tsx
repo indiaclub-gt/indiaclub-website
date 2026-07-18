@@ -69,12 +69,24 @@ export default function Events() {
               rel={event.link ? "noopener noreferrer" : undefined}
               className="group rounded-xl overflow-hidden bg-white shadow-md hover:shadow-xl transition-shadow duration-300"
             >
-              <div className="relative aspect-[16/9]">
+              <div
+                className={`relative aspect-[16/9] ${
+                  event.thumbnail.includes("IClogo") ? "bg-[#2D2D2D]" : ""
+                }`}
+              >
                 <Image
-                  src={event.thumbnail}
+                  src={
+                    event.thumbnail.includes("IClogo")
+                      ? "/images/IClogowhite.png"
+                      : event.thumbnail
+                  }
                   alt={`${event.name} thumbnail`}
                   fill
-                  className="object-cover group-hover:scale-[1.02] transition-transform duration-300"
+                  className={`${
+                    event.thumbnail.includes("IClogo")
+                      ? "object-contain p-5"
+                      : "object-cover"
+                  } group-hover:scale-[1.02] transition-transform duration-300`}
                 />
               </div>
               <div className="p-4 bg-white group-hover:bg-gradient-to-r group-hover:from-green-700 group-hover:to-orange-500 transition-all duration-300">
@@ -101,12 +113,24 @@ export default function Events() {
               rel="noopener noreferrer"
               className="group rounded-xl overflow-hidden bg-white shadow-md hover:shadow-xl transition-shadow duration-300"
             >
-              <div className="relative aspect-[16/9]">
+              <div
+                className={`relative aspect-[16/9] ${
+                  event.thumbnail.includes("IClogo") ? "bg-[#2D2D2D]" : ""
+                }`}
+              >
                 <Image
-                  src={event.thumbnail}
+                  src={
+                    event.thumbnail.includes("IClogo")
+                      ? "/images/IClogowhite.png"
+                      : event.thumbnail
+                  }
                   alt={`${event.name} gallery thumbnail`}
                   fill
-                  className="object-cover group-hover:scale-[1.02] transition-transform duration-300"
+                  className={`${
+                    event.thumbnail.includes("IClogo")
+                      ? "object-contain p-5"
+                      : "object-cover"
+                  } group-hover:scale-[1.02] transition-transform duration-300`}
                 />
               </div>
               <div className="p-4 bg-white group-hover:bg-gradient-to-r group-hover:from-green-700 group-hover:to-orange-500 transition-all duration-300">

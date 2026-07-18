@@ -86,12 +86,24 @@ export default function Officers() {
                     key={`${branch.name}-${officer.name}`}
                     className="group rounded-xl overflow-hidden bg-white shadow-md w-full max-w-[280px] hover:shadow-xl transition-shadow duration-300"
                   >
-                    <div className="relative aspect-[3/4]">
+                    <div
+                      className={`relative aspect-[3/4] ${
+                        officer.thumbnail.includes("IClogo") ? "bg-[#2D2D2D]" : ""
+                      }`}
+                    >
                       <Image
-                        src={officer.thumbnail}
+                        src={
+                          officer.thumbnail.includes("IClogo")
+                            ? "/images/IClogowhite.png"
+                            : officer.thumbnail
+                        }
                         alt={`${officer.name} headshot`}
                         fill
-                        className="object-cover object-top group-hover:scale-[1.02] transition-transform duration-300"
+                        className={`${
+                          officer.thumbnail.includes("IClogo")
+                            ? "object-contain p-4"
+                            : "object-cover object-top"
+                        } group-hover:scale-[1.02] transition-transform duration-300`}
                       />
                     </div>
                     <div className="p-4 bg-white group-hover:bg-gradient-to-r group-hover:from-green-700 group-hover:to-orange-500 transition-all duration-300">
