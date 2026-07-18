@@ -16,13 +16,6 @@ export default function Navbar() {
         : "text-white font-semibold hover:text-[#b8c7d9]"
     }`;
 
-  const subLinkStyle = (path: string) =>
-    `block px-4 py-2 text-sm text-center transition-colors duration-200 ${
-      pathname === path
-        ? "text-[#b8c7d9] font-bold"
-        : "text-white font-semibold hover:text-[#b8c7d9]"
-    }`;
-
   const sidebarLinkStyle = (path: string) =>
     `flex items-center w-full py-2.5 px-3 rounded-lg text-lg transition-all duration-200 hover:bg-white/5 ${
       pathname === path
@@ -46,7 +39,7 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className="sticky top-0 z-50 bg-[#001f3f] border-b-2 border-[#f7f7f7] flex items-center justify-between md:grid md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] py-3 px-4 navbar-font"
+        className="sticky top-0 z-50 bg-[#001f3f] border-b-2 border-[#faf6f0] flex items-center justify-between md:grid md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] py-3 px-4 navbar-font"
       >
         <Link href="/" className="flex items-center gap-2 justify-self-start md:w-[320px]">
           <Image
@@ -79,19 +72,23 @@ export default function Navbar() {
               Members
             </span>
             {isMembersDropdownOpen && (
-              <div className="absolute top-full left-1/2 -translate-x-1/2 bg-[#001f3f] border border-[#f7f7f7] rounded-md shadow-lg w-[150px] z-50">
-                <Link
-                  href="/board-members/structure"
-                  className={subLinkStyle("/board-members/structure")}
-                >
-                  Structure
-                </Link>
-                <Link
-                  href="/board-members/officers"
-                  className={subLinkStyle("/board-members/officers")}
-                >
-                  Officers
-                </Link>
+              <div className="absolute top-full left-1/2 -translate-x-1/2 bg-[#001f3f] border border-[#faf6f0] rounded-md shadow-lg w-40 z-50 p-1.5">
+                <div className="flex flex-col gap-1">
+                  <Link
+                    href="/board-members/officers"
+                    className={`${sidebarSubLinkStyle("/board-members/officers")} justify-center`}
+                    onClick={() => setIsMembersDropdownOpen(false)}
+                  >
+                    Officers
+                  </Link>
+                  <Link
+                    href="/board-members/structure"
+                    className={`${sidebarSubLinkStyle("/board-members/structure")} justify-center`}
+                    onClick={() => setIsMembersDropdownOpen(false)}
+                  >
+                    Structure
+                  </Link>
+                </div>
               </div>
             )}
           </div>
@@ -183,11 +180,11 @@ export default function Navbar() {
               {/* Members group */}
               <p className={sidebarGroupLabelStyle}>Members</p>
               <div className="ml-3 flex flex-col gap-1 border-l border-white/15 pl-2">
-                <Link href="/board-members/structure" className={sidebarSubLinkStyle("/board-members/structure")} onClick={() => setIsSidebarOpen(false)}>
-                  Structure
-                </Link>
                 <Link href="/board-members/officers" className={sidebarSubLinkStyle("/board-members/officers")} onClick={() => setIsSidebarOpen(false)}>
                   Officers
+                </Link>
+                <Link href="/board-members/structure" className={sidebarSubLinkStyle("/board-members/structure")} onClick={() => setIsSidebarOpen(false)}>
+                  Structure
                 </Link>
               </div>
 

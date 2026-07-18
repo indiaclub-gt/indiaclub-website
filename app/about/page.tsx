@@ -44,9 +44,20 @@ const PRESIDENTS = [
 
 export default function About() {
   const [heroIndex, setHeroIndex] = useState(0);
-  const [activeSection, setActiveSection] = useState(0);
+  // Start with nothing active so the first section renders in its "resting"
+  // (scaled/dimmed) state, then pops in on the next frame (see effect below).
+  const [activeSection, setActiveSection] = useState(-1);
   const sectionRefs = useRef<(HTMLElement | null)[]>([]);
   const galleryRef = useRef<HTMLDivElement>(null);
+
+  // On first load, animate the hero's pop-in: flip section 0 to active on the
+  // next frame (unless the observer has already claimed a section by then).
+  useEffect(() => {
+    const frame = requestAnimationFrame(() =>
+      setActiveSection((prev) => (prev === -1 ? 0 : prev))
+    );
+    return () => cancelAnimationFrame(frame);
+  }, []);
 
   // Hero background slideshow: auto-advance with a crossfade, paused when the
   // user prefers reduced motion.
@@ -119,8 +130,9 @@ export default function About() {
       <section
         ref={registerSection(0)}
         data-index={0}
-        className={`relative h-[70vh] min-h-[420px] w-full overflow-hidden ${sectionClass(0)}`}
+        className="w-full bg-[var(--background)]"
       >
+        <div className={`relative h-[70vh] min-h-[420px] w-full overflow-hidden ${sectionClass(0)}`}>
         {/* Crossfading background images */}
         {HERO_SLIDES.map((slide, i) => (
           <div
@@ -150,18 +162,20 @@ export default function About() {
             Celebrate our culture, empower each other and create memories for a lifetime
           </p>
         </div>
+        </div>
       </section>
 
       {/* 2. STATS BAR ------------------------------------------------------- */}
       <section
         ref={registerSection(1)}
         data-index={1}
-        className={`w-full bg-[var(--color-navy-dark)] px-6 py-14 ${sectionClass(1)}`}
+        className="w-full bg-[var(--color-navy-dark)]"
       >
+        <div className={`w-full bg-[var(--color-navy-dark)] px-6 py-14 ${sectionClass(1)}`}>
         <div className="mx-auto grid max-w-5xl grid-cols-3 gap-4 text-center">
           {STATS.map((stat) => (
             <div key={stat.label} className="flex flex-col items-center">
-              <span className="text-4xl font-semibold text-[var(--color-text-light)] sm:text-6xl md:text-7xl">
+              <span className="font-[family-name:var(--font-lora)] text-4xl font-semibold text-[var(--color-text-light)] sm:text-6xl md:text-7xl">
                 {stat.number}
               </span>
               <span className="mt-2 font-[family-name:var(--font-montserrat)] text-[10px] uppercase tracking-widest text-[var(--color-text-light)]/80 sm:text-xs md:text-sm">
@@ -170,14 +184,16 @@ export default function About() {
             </div>
           ))}
         </div>
+        </div>
       </section>
 
       {/* 3. WHO WE ARE ------------------------------------------------------ */}
       <section
         ref={registerSection(2)}
         data-index={2}
-        className={`relative w-full ${sectionClass(2)}`}
+        className="w-full bg-[var(--background)]"
       >
+        <div className={`relative w-full ${sectionClass(2)}`}>
         {/* Full-width group photo background */}
         <Image
           src="/images/diwaliboard.jpg"
@@ -205,14 +221,16 @@ export default function About() {
             </p>
           </div>
         </div>
+        </div>
       </section>
 
       {/* 4. GALLERY --------------------------------------------------------- */}
       <section
         ref={registerSection(3)}
         data-index={3}
-        className={`w-full bg-[var(--color-cream)] px-6 py-16 ${sectionClass(3)}`}
+        className="w-full bg-[var(--background)]"
       >
+        <div className={`w-full bg-[var(--color-cream)] px-6 py-16 ${sectionClass(3)}`}>
         <div className="mx-auto max-w-6xl">
           <h2 className="mb-8 text-3xl font-semibold text-[var(--color-text-dark)] md:text-5xl">
             Gallery
@@ -261,14 +279,16 @@ export default function About() {
             </button>
           </div>
         </div>
+        </div>
       </section>
 
       {/* 5. A NOTE FROM THE PRESIDENTS ------------------------------------- */}
       <section
         ref={registerSection(4)}
         data-index={4}
-        className={`w-full bg-[var(--color-navy-dark)] px-6 py-16 ${sectionClass(4)}`}
+        className="w-full bg-[var(--color-navy-dark)]"
       >
+        <div className={`w-full bg-[var(--color-navy-dark)] px-6 py-16 ${sectionClass(4)}`}>
         <div className="mx-auto max-w-5xl">
           <h2 className="mb-14 text-center text-3xl font-semibold text-[var(--color-text-light)] md:text-5xl">
             A Note From The Presidents
@@ -295,13 +315,14 @@ export default function About() {
                   <p className="text-sm leading-relaxed text-[var(--color-text-light)]/90 md:text-base">
                     {president.note}
                   </p>
-                  <p className="mt-4 font-[family-name:var(--font-montserrat)] text-sm text-[var(--color-accent)]">
+                  <p className="mt-4 text-sm text-[var(--color-accent)]">
                     &mdash; {president.name}
                   </p>
                 </div>
               </div>
             ))}
           </div>
+        </div>
         </div>
       </section>
     </div>

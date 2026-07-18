@@ -12,7 +12,7 @@ export default function Home() {
   }, []);
 
   return (
-    <section className="relative min-h-screen w-full overflow-hidden">
+    <section className="legacy-serif relative min-h-screen w-full overflow-hidden">
       <Image
         src="/images/holi.avif"
         alt="Holi celebration crowd"
