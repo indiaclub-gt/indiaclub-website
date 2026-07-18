@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { Lora } from "next/font/google";
 import { Montserrat } from "next/font/google";
 import { Playfair_Display } from "next/font/google";
@@ -121,6 +122,7 @@ export default function RootLayout({
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
+        <Analytics />
       </body>
     </html>
   );
