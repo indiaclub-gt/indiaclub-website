@@ -46,9 +46,9 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className="sticky top-0 z-50 bg-[#001f3f] border-b-2 border-[#f7f7f7] grid grid-cols-[320px_auto_320px] items-center py-3 px-4 navbar-font"
+        className="sticky top-0 z-50 bg-[#001f3f] border-b-2 border-[#f7f7f7] flex items-center justify-between md:grid md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] py-3 px-4 navbar-font"
       >
-        <Link href="/" className="flex items-center gap-2 justify-self-start w-[320px]">
+        <Link href="/" className="flex items-center gap-2 justify-self-start md:w-[320px]">
           <Image
             src="/images/IClogowhite.png"
             alt="India Club @ Georgia Tech Logo"
@@ -60,7 +60,7 @@ export default function Navbar() {
           </span>
         </Link>
 
-        <div className="flex items-center gap-5 justify-self-center">
+        <div className="hidden md:flex items-center gap-5 justify-self-center">
           <Link className={linkStyle("/")} href="/">Home</Link>
           <Link className={linkStyle("/about")} href="/about">About</Link>
           <Link className={linkStyle("/join")} href="/join">Get Involved</Link>
@@ -98,8 +98,8 @@ export default function Navbar() {
           <Link className={linkStyle("/events")} href="/events">Events</Link>
         </div>
 
-        <div className="flex w-[320px] items-center justify-end gap-3 justify-self-end">
-          <a href="mailto:info@indiaclub.gatech.edu" className="flex items-center px-2 py-1">
+        <div className="flex md:w-[320px] items-center justify-end gap-3 justify-self-end">
+          <a href="mailto:info@indiaclub.gatech.edu" className="hidden md:flex items-center px-2 py-1">
             <Image
               src="/images/mailicon.png"
               alt="Email Contact"
@@ -113,7 +113,7 @@ export default function Navbar() {
             href="https://www.instagram.com/indiaclub_gt/"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center px-2 py-1"
+            className="hidden md:flex items-center px-2 py-1"
           >
             <Image
               src="/images/instagramwhite.png"
@@ -129,7 +129,7 @@ export default function Navbar() {
             href="https://www.tiktok.com/@indiaclub_gt"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center px-2 py-1"
+            className="hidden md:flex items-center px-2 py-1"
           >
             <Image
               src="/images/tiktoklogo.png"
@@ -145,7 +145,7 @@ export default function Navbar() {
             type="button"
             aria-label="Open navigation menu"
             onClick={() => setIsSidebarOpen(true)}
-            className="p-1.5 rounded-md hover:bg-gray-300 transition-colors duration-200"
+            className="md:hidden p-1.5 rounded-md hover:bg-gray-300 transition-colors duration-200"
           >
             <span className="block w-4 h-0.5 bg-white mb-1" />
             <span className="block w-4 h-0.5 bg-white mb-1" />
@@ -160,7 +160,7 @@ export default function Navbar() {
           onClick={() => setIsSidebarOpen(false)}
         >
           <aside
-            className="absolute top-0 right-0 h-full w-72 bg-[#001f3f] shadow-xl p-6"
+            className="absolute top-0 right-0 h-full w-72 max-w-[85vw] bg-[#001f3f] shadow-xl p-6"
             onClick={(event) => event.stopPropagation()}
           >
             <div className="flex items-center justify-between mb-6">
