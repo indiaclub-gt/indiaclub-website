@@ -1,4 +1,12 @@
+import type { Metadata } from "next";
 import Image from "next/image";
+
+export const metadata: Metadata = {
+  title: "Events",
+  description:
+    "Upcoming and past events from India Club at Georgia Tech, including Holi, Diwali Night, Garba, socials, and cultural showcases.",
+  alternates: { canonical: "/events" },
+};
 
 const upcomingEvents = [
   {

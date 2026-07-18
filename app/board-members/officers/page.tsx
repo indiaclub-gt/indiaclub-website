@@ -1,4 +1,11 @@
+import type { Metadata } from "next";
 import Image from "next/image";
+
+export const metadata: Metadata = {
+  title: "Officers",
+  description: "Meet the officers leading India Club at Georgia Tech.",
+  alternates: { canonical: "/board-members/officers" },
+};
 
 type Officer = {
   name: string;

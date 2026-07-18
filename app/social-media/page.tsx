@@ -1,3 +1,12 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Social Media",
+  description:
+    "Follow India Club at Georgia Tech on Instagram and TikTok for the latest updates and event announcements.",
+  alternates: { canonical: "/social-media" },
+};
+
 export default function SocialMedia() {
     return (
       <div>

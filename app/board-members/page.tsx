@@ -1,3 +1,12 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Board Members",
+  description:
+    "Meet the board of India Club at Georgia Tech — our officers and how the organization is structured.",
+  alternates: { canonical: "/board-members" },
+};
+
 export default function BoardMembers() {
     return (
       <div>

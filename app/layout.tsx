@@ -31,9 +31,79 @@ const raleway = Raleway({
   weight: ["400", "500", "600", "700"],
 });
 
+const SITE_URL = "https://indiaclubgt.com";
+const SITE_NAME = "India Club @ Georgia Tech";
+const SITE_DESCRIPTION =
+  "India Club at Georgia Tech (ICGT) is a student community celebrating Indian culture through Holi, Diwali, Garba, and more. Explore our events, get involved, and meet the board.";
+
 export const metadata: Metadata = {
-  title: "India Club @ GT",
-  description: "India Club @ GT",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: SITE_NAME,
+    template: "%s | India Club @ GT",
+  },
+  description: SITE_DESCRIPTION,
+  keywords: [
+    "India Club",
+    "Georgia Tech",
+    "ICGT",
+    "India Club GT",
+    "Indian culture",
+    "Indian student organization",
+    "Holi",
+    "Diwali",
+    "Garba",
+    "Atlanta",
+    "GT student org",
+  ],
+  applicationName: SITE_NAME,
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    siteName: SITE_NAME,
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+    url: "/",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
+
+// Organization + WebSite structured data (schema.org / JSON-LD) for rich results.
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${SITE_URL}/#organization`,
+      name: SITE_NAME,
+      alternateName: "India Club @ GT",
+      url: SITE_URL,
+      logo: `${SITE_URL}/images/IClogo.png`,
+      email: "info@indiaclub.gatech.edu",
+      sameAs: [
+        "https://www.instagram.com/indiaclub_gt/",
+        "https://www.tiktok.com/@indiaclub_gt",
+      ],
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      name: SITE_NAME,
+      url: SITE_URL,
+      publisher: { "@id": `${SITE_URL}/#organization` },
+    },
+  ],
 };
 
 export default function RootLayout({
@@ -44,6 +114,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${lora.variable} ${montserrat.variable} ${playfair.variable} ${raleway.variable} min-h-screen flex flex-col`}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />

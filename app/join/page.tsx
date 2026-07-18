@@ -1,4 +1,12 @@
+import type { Metadata } from "next";
 import Image from "next/image";
+
+export const metadata: Metadata = {
+  title: "Get Involved",
+  description:
+    "Get involved with India Club at Georgia Tech — join our community, project teams, and events. Everyone's welcome, no experience required.",
+  alternates: { canonical: "/join" },
+};
 
 export default function Join() {
   return (
