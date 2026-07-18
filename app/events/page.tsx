@@ -50,6 +50,12 @@ const pastEventGalleries = [
   },
 ];
 
+// Show most recent first. `subtitle` is used as the date, so keep it a
+// parseable date string (e.g. "April 4, 2026") for correct ordering.
+const pastEventsNewestFirst = [...pastEventGalleries].sort(
+  (a, b) => new Date(b.subtitle).getTime() - new Date(a.subtitle).getTime()
+);
+
 export default function Events() {
   return (
     <main className="px-6 py-10 max-w-6xl mx-auto">
@@ -105,7 +111,7 @@ export default function Events() {
       <section>
         <h2 className="text-3xl font-bold text-green-800 mb-6">Past Events</h2>
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {pastEventGalleries.map((event) => (
+          {pastEventsNewestFirst.map((event) => (
             <a
               key={event.name}
               href={event.link}
