@@ -22,50 +22,51 @@ const boardBranches: Branch[] = [
   {
     name: "Presidents",
     officers: [
-      { name: "Srujan Gubbi", position: "President", thumbnail: "/images/srujan.jpg" },
-      { name: "Rida Merani", position: "President", thumbnail: "/images/rida.jpg" },
+      { name: "Anaya Desai", position: "President", thumbnail: "/images/anaya.jpg" },
+      { name: "Shreya Chakraborty", position: "President", thumbnail: "/images/IClogo.png" },
     ],
   },
   {
     name: "Operations",
     officers: [
-      { name: "Anaya Desai", position: "VP Operations", thumbnail: "/images/anaya.jpg" },
-      { name: "Apoorva Mahendranath", position: "VP Operations", thumbnail: "/images/apoorva.jpg" },
+      { name: "Nehal Harapanahalli", position: "VP Operations", thumbnail: "/images/IClogo.png" },
+      { name: "Sidhaant Kadam", position: "VP Operations", thumbnail: "/images/IClogo.png" },
     ],
   },
   {
     name: "Finance",
     officers: [
+      { name: "Aditya Gupta", position: "VP Finance", thumbnail: "/images/IClogo.png" },
       { name: "Param Desai", position: "VP Finance", thumbnail: "/images/param.jpg" },
-      { name: "Shreya Chakraborty", position: "VP Finance", thumbnail: "/images/IClogo.png" },
     ],
   },
   {
     name: "Logistics",
     officers: [
-      { name: "Hari Uthaman", position: "VP Logistics", thumbnail: "/images/IClogo.png" },
-      { name: "Veda Vundela", position: "VP Logistics", thumbnail: "/images/IClogo.png" },
+      { name: "Aditi Rajvanshi", position: "VP Logistics", thumbnail: "/images/IClogo.png" },
+      { name: "Vaikunth Ananthanarayanan", position: "VP Logistics", thumbnail: "/images/IClogo.png" },
     ],
   },
   {
     name: "IT",
     officers: [
-      { name: "Rahul Balusu", position: "VP IT", thumbnail: "/images/rahul.jpg" },
-      { name: "Aarav Sharma", position: "VP IT", thumbnail: "/images/aarav.jpg" },
+      { name: "Aadi Dash", position: "VP IT", thumbnail: "/images/IClogo.png" },
+      { name: "Anuj Naik", position: "VP IT", thumbnail: "/images/IClogo.png" },
+      { name: "Aryan Patel", position: "VP IT", thumbnail: "/images/IClogo.png" },
     ],
   },
   {
     name: "Marketing",
     officers: [
-      { name: "Gargi Gupta", position: "VP Marketing", thumbnail: "/images/gargi.jpg" },
+      { name: "Abhinav Nimmagadda", position: "VP Marketing", thumbnail: "/images/IClogo.png" },
       { name: "Tanushri Kemisetti", position: "VP Marketing", thumbnail: "/images/tanushri.png" },
     ],
   },
   {
     name: "Media, Arts, & Design",
     officers: [
-      { name: "Rhea Iyer", position: "VP MAD", thumbnail: "/images/rhea.jpg" },
-      { name: "Arpita Gupta", position: "VP MAD", thumbnail: "/images/arpita.jpg" },
+      { name: "Megha Yeddula", position: "VP MAD", thumbnail: "/images/IClogo.png" },
+      { name: "Prisha Solanki", position: "VP MAD", thumbnail: "/images/IClogo.png" },
     ],
   },
 ];
