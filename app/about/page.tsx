@@ -28,9 +28,32 @@ const STATS = [
   { number: "6+", label: "Festivals Annually" },
 ];
 
-// 12 cells (3 pages of 4) so the prev/next arrows have somewhere to go.
-// These use the India Club logo as a placeholder for real event photos.
-const GALLERY = Array.from({ length: 12 }, (_, i) => i + 1);
+// 12 event photos (3 pages of 4) in a fixed random order. `position` overrides
+// the default object-center crop for shots whose subject isn't dead-center;
+// since the cards are portrait and the photos landscape, object-cover keeps the
+// full height and crops left/right, so only the horizontal value matters.
+const GALLERY: { src: string; alt: string; position?: string }[] = [
+  { src: "/images/gallery7.jpg", alt: "India Club event" },
+  { src: "/images/gallery3.jpg", alt: "India Club event" },
+  {
+    src: "/images/gallery11.jpg",
+    alt: "Dancers performing beneath the Masti banner",
+    position: "object-[53%_center]",
+  },
+  { src: "/images/gallery1.jpg", alt: "India Club event" },
+  { src: "/images/gallery9.jpg", alt: "India Club event" },
+  { src: "/images/gallery5.jpg", alt: "India Club event" },
+  { src: "/images/gallery12.jpg", alt: "India Club event" },
+  { src: "/images/gallery2.jpg", alt: "India Club event" },
+  {
+    src: "/images/gallery10.jpg",
+    alt: "Dhol player performing on stage",
+    position: "object-[45%_center]",
+  },
+  { src: "/images/gallery6.jpg", alt: "India Club event" },
+  { src: "/images/gallery4.jpg", alt: "India Club event" },
+  { src: "/images/gallery8.jpg", alt: "India Club event" },
+];
 
 // Both president notes read as the same placeholder copy in the design.
 // President names/titles aren't legible in the screenshot -> TODO placeholders.
@@ -253,19 +276,19 @@ export default function About() {
               ref={galleryRef}
               className="no-scrollbar flex min-w-0 flex-1 snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth py-2"
             >
-              {GALLERY.map((n) => (
+              {GALLERY.map((photo) => (
                 <div
-                  key={n}
+                  key={photo.src}
                   // Exactly 4 cards fill the viewport on desktop (3 gaps of 1rem);
                   // fewer on smaller screens so they don't get too narrow.
-                  className="relative flex aspect-[4/5] w-[80%] flex-shrink-0 snap-start items-center justify-center rounded-md bg-[#2D2D2D] p-6 sm:w-[calc((100%-1rem)/2)] lg:w-[calc((100%-3rem)/4)]"
+                  className="relative aspect-[4/5] w-[80%] flex-shrink-0 snap-start overflow-hidden rounded-md bg-[#2D2D2D] sm:w-[calc((100%-1rem)/2)] lg:w-[calc((100%-3rem)/4)]"
                 >
                   <Image
-                    src="/images/IClogowhite.png"
-                    alt={`Gallery placeholder ${n}`}
-                    width={140}
-                    height={140}
-                    className="h-auto w-2/3 object-contain opacity-70"
+                    src={photo.src}
+                    alt={photo.alt}
+                    fill
+                    sizes="(max-width: 640px) 80vw, (max-width: 1024px) 50vw, 25vw"
+                    className={`object-cover ${photo.position ?? "object-center"}`}
                   />
                 </div>
               ))}
