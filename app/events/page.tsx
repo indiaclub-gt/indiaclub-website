@@ -75,7 +75,8 @@ export default function Events() {
       </p>
 
       <section className="mb-12">
-        <h2 className="text-3xl font-bold text-green-800 mb-6">Upcoming Events</h2>
+        <h2 className="text-3xl font-bold text-green-800 mb-2">Upcoming Events</h2>
+        <p className="text-gray-500 mb-6">Mark your calendars!</p>
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {upcomingEvents.map((event) => (
             <a
