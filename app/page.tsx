@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function Home() {
@@ -25,7 +26,7 @@ export default function Home() {
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_30%,rgba(255,255,255,0.16),transparent_48%)]" />
 
       <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-7xl flex-col justify-center px-6 md:px-16 -translate-y-40">
-        <h1 className="flex w-full flex-col">
+        <h1 className="relative flex w-full flex-col">
           <span
             className={`self-start text-left text-white text-7xl md:text-[9rem] lg:text-[11rem] leading-[0.9] drop-shadow-[0_10px_24px_rgba(0,0,0,0.5)] transition-all duration-900 ease-out ${
               entered ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-24"
@@ -40,6 +41,24 @@ export default function Home() {
           >
             at Georgia Tech
           </span>
+
+          {/* Absolutely positioned so it hangs below the title without
+              affecting the hero's vertical centering. */}
+          <div
+            className={`absolute right-0 top-full mt-10 transition-all duration-900 delay-200 ease-out ${
+              entered ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+            }`}
+          >
+            <Link
+              href="/events"
+              className="group inline-flex items-center gap-2 rounded-full bg-white/95 px-8 py-4 text-lg font-semibold text-[#001f3f] shadow-[0_8px_24px_rgba(0,0,0,0.35)] transition-all duration-300 hover:bg-white hover:shadow-[0_12px_32px_rgba(0,0,0,0.45)] hover:-translate-y-0.5"
+            >
+              View Event Photos
+              <span className="transition-transform duration-300 group-hover:translate-x-1">
+                →
+              </span>
+            </Link>
+          </div>
         </h1>
       </div>
     </section>
