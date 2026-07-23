@@ -13,15 +13,25 @@ const upcomingEvents = [
     name: "Garba Day 1",
     link: null, // TODO: registration/event link
     thumbnail: "/images/IClogo.png", // TODO: event thumbnail
-    subtitle: "TODO: date",
+    subtitle: "Date TBD",
   },
 ];
 
-const pastEventGalleries = [
+type PastEvent = {
+  name: string;
+  link: string;
+  thumbnail: string;
+  subtitle: string;
+  // Optional CSS object-position for the thumbnail crop (defaults to center).
+  objectPosition?: string;
+};
+
+const pastEventGalleries: PastEvent[] = [
   {
     name: "Garba Day 1",
     link: "https://gallery.pierrethepearphotography.com/gtindiaclubgarbanight/",
     thumbnail: "/images/garba1.jpg",
+    objectPosition: "50% 33%",
     subtitle: "September 13, 2025",
   },
   {
@@ -33,19 +43,19 @@ const pastEventGalleries = [
   {
     name: "Diwali",
     link: "https://anaveragephoto.pixieset.com/icgtdiwali/",
-    thumbnail: "/images/diwaliboard.jpg",
+    thumbnail: "/images/diwalicard.jpg",
     subtitle: "November 8, 2025",
   },
   {
     name: "Mock Shaadi",
-    link: "https://doorlist.app/e/Ngo5Mob?s=6ASqMnKnCA",
-    thumbnail: "/images/shaadi.png",
+    link: "https://anaveragephoto.pixieset.com/icgt-mock-shaadi/",
+    thumbnail: "/images/mockshaadi.jpg",
     subtitle: "February 21, 2026",
   },
   {
     name: "Holi Show 2026",
-    link: "https://www.instagram.com/p/DUESm9pgdVB/",
-    thumbnail: "/images/IClogo.png",
+    link: "https://sp7media.pixieset.com/gtholishow/",
+    thumbnail: "/images/holishow.jpg",
     subtitle: "April 4, 2026",
   },
 ];
@@ -132,6 +142,11 @@ export default function Events() {
                   }
                   alt={`${event.name} gallery thumbnail`}
                   fill
+                  style={
+                    event.objectPosition && !event.thumbnail.includes("IClogo")
+                      ? { objectPosition: event.objectPosition }
+                      : undefined
+                  }
                   className={`${
                     event.thumbnail.includes("IClogo")
                       ? "object-contain p-5"
