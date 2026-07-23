@@ -16,10 +16,11 @@ import { useEffect, useRef, useState } from "react";
 --------------------------------------------------------------------------- */
 
 // Hero background crossfade slides.
-const HERO_SLIDES = [
-  { src: "/images/holi.avif", alt: "Holi celebration" },
-  { src: "/images/garba1.jpg", alt: "Garba night" },
-  { src: "/images/garba2.jpg", alt: "Garba celebration" },
+const HERO_SLIDES: { src: string; alt: string; position?: string }[] = [
+  // Center on the "ICGT" sparkler lettering, which sits slightly above middle.
+  { src: "/images/about1.png", alt: "ICGT sparkler photo", position: "object-[center_42%]" },
+  { src: "/images/about2_new.jpg", alt: "India Club" },
+  { src: "/images/about3.jpg", alt: "India Club" },
 ];
 
 const STATS = [
@@ -171,7 +172,7 @@ export default function About() {
               fill
               priority={i === 0}
               sizes="100vw"
-              className="object-cover object-center"
+              className={`object-cover ${slide.position ?? "object-center"}`}
             />
           </div>
         ))}
