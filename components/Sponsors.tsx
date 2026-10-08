@@ -19,6 +19,7 @@ const sponsors: Sponsor[] = [
   { name: "Chick-fil-A", src: "/images/sponsors/chickfila.png" },
   { name: "Chipotle Mexican Grill", src: "/images/sponsors/chipotle.png" },
   { name: "Ghee Indian Kitchen", src: "/images/sponsors/ghee.png" },
+  { name: "Patel Brothers", src: "/images/sponsors/patelbrothers.png" },
   { name: "Tin Drum Asian Kitchen", src: "/images/sponsors/tindrum.png", wide: true },
   { name: "Paloma West Midtown", src: "/images/sponsors/paloma.webp", scale: "scale-[1.3]" },
   { name: "Fetii", src: "/images/sponsors/fetii.png" },
