@@ -13,7 +13,7 @@ export default function Structure() {
     <section className="w-full bg-white -mb-12 pb-12">
       <h1 className="sr-only">India Club at Georgia Tech Board Structure</h1>
       <Image
-        src="/images/BoardStructure.png"
+        src="/images/F26_structure.png"
         alt="India Club board structure"
         width={2000}
         height={1200}
