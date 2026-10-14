@@ -8,6 +8,10 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
    The popup hides itself automatically once EVENT_ENDS_AT has passed, so it
    does not need to be manually removed after the last garba night.
+
+   Currently NOT mounted anywhere — kept as a template for future popups.
+   To reuse: update the constants and poster/copy below, then render
+   <DandiyaPopup /> (or a renamed copy) in app/layout.tsx above <Navbar />.
 --------------------------------------------------------------------------- */
 
 // The second night is October 17, 2026; hide the popup after it wraps up.
