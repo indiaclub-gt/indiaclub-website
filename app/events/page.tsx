@@ -10,16 +10,10 @@ export const metadata: Metadata = {
 
 const upcomingEvents = [
   {
-    name: "Garba Day 1",
+    name: "Diwali",
     link: null, // TODO: registration/event link
     thumbnail: "/images/IClogo.png", // TODO: event thumbnail
-    subtitle: "October 10, 2026",
-  },
-  {
-    name: "Garba Day 2",
-    link: null, // TODO: registration/event link
-    thumbnail: "/images/IClogo.png", // TODO: event thumbnail
-    subtitle: "October 17, 2026",
+    subtitle: "November 14, 2026",
   },
 ];
 
@@ -31,7 +25,7 @@ const upcomingEventsSoonestFirst = [...upcomingEvents].sort(
 
 type PastEvent = {
   name: string;
-  link: string;
+  link: string | null;
   thumbnail: string;
   subtitle: string;
   // Optional CSS object-position for the thumbnail crop (defaults to center).
@@ -41,15 +35,28 @@ type PastEvent = {
 const pastEventGalleries: PastEvent[] = [
   {
     name: "Garba Day 1",
+    link: "https://photos.google.com/share/AF1QipM3n99RtlzEOVCFrpmRH4LuUiHohRGPOruckKCXq299h3XiguTGm2Pm1ap2OGP2eQ?key=WXlibEtBMXpEaTQ0S3EtX1ZBRk5IamFSZHVWOWRR",
+    thumbnail: "/images/garba1-26.JPG",
+    objectPosition: "50% 100%",
+    subtitle: "October 10, 2026",
+  },
+  {
+    name: "Garba Day 2",
+    link: null, // TODO: photo gallery link
+    thumbnail: "/images/IClogo.png", // TODO: event thumbnail
+    subtitle: "October 17, 2026",
+  },
+  {
+    name: "Garba Day 1",
     link: "https://gallery.pierrethepearphotography.com/gtindiaclubgarbanight/",
-    thumbnail: "/images/garba1.jpg",
+    thumbnail: "/images/garba1-25.jpg",
     objectPosition: "50% 33%",
     subtitle: "September 13, 2025",
   },
   {
     name: "Garba Day 2",
     link: "https://lightroom.adobe.com/shares/fd1552b70f92405183cf48e1927e99ff",
-    thumbnail: "/images/garba2.jpg",
+    thumbnail: "/images/garba2-25.jpg",
     subtitle: "September 20, 2025",
   },
   {
@@ -92,7 +99,7 @@ export default function Events() {
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {upcomingEventsSoonestFirst.map((event) => (
             <a
-              key={event.name}
+              key={`${event.name}-${event.subtitle}`}
               href={event.link ?? "#"}
               target={event.link ? "_blank" : undefined}
               rel={event.link ? "noopener noreferrer" : undefined}
@@ -137,10 +144,10 @@ export default function Events() {
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {pastEventsNewestFirst.map((event) => (
             <a
-              key={event.name}
-              href={event.link}
-              target="_blank"
-              rel="noopener noreferrer"
+              key={`${event.name}-${event.subtitle}`}
+              href={event.link ?? "#"}
+              target={event.link ? "_blank" : undefined}
+              rel={event.link ? "noopener noreferrer" : undefined}
               className="group rounded-xl overflow-hidden bg-white shadow-md hover:shadow-xl transition-shadow duration-300"
             >
               <div
