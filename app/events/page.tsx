@@ -42,8 +42,9 @@ const pastEventGalleries: PastEvent[] = [
   },
   {
     name: "Garba Day 2",
-    link: null, // TODO: photo gallery link
-    thumbnail: "/images/IClogo.png", // TODO: event thumbnail
+    link: "https://drive.google.com/drive/u/2/folders/1qhkIphEQ3E07cnYfEI58RCJOe_UsoSaF",
+    thumbnail: "/images/garba2-26.JPG",
+    objectPosition: "50% 0%",
     subtitle: "October 17, 2026",
   },
   {
