@@ -10,11 +10,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 --------------------------------------------------------------------------- */
 
 // TODO: Replace with the real alumni mailing list Google Form link.
-const ALUMNI_FORM_URL = "https://forms.gle/PLACEHOLDER";
+const ALUMNI_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSeisZtLHVu43eSTTkuZR5QMncSaznbWO2Vw_n-hla9L9GX2Aw/viewform?usp=sharing&ouid=118096926840939270870";
 
-// TODO: Swap to "/alumni-placeholder.png" (or a real alumni photo) once it's added to /public,
-// and change the alumni card's imageClassName to "object-cover" if it's a photo.
-const ALUMNI_IMAGE_SRC = "/images/IClogowhite.png";
+const ALUMNI_IMAGE_SRC = "/images/alumni.jpeg";
 
 // Donation flyer (tall/portrait image).
 const DONATE_FLYER_SRC = "/images/donate-flyer.jpg";
@@ -88,8 +86,7 @@ export default function GetInvolvedCards() {
       image: {
         src: ALUMNI_IMAGE_SRC,
         alt: "India Club alumni network",
-        className: "object-contain p-5",
-        bgClassName: "bg-[#2D2D2D]",
+        className: "object-cover",
       },
     },
     {
